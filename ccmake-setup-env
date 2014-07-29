@@ -1,0 +1,7 @@
+#!/bin/bash
+CMAKE=/tools/CMake/cmake-2.8.12.2/bin/ccmake
+ITK_DIR=/NIRAL/work/jeanyves/pgm/ITK-4.5.2VTK6.1GlueGLCompatibleITK3/lib/cmake/ITK-4.5
+VTK_DIR=/NIRAL/work/jeanyves/pgm/VTK-6.1dyn/lib/cmake/vtk-6.1
+SlicerExecutionModel_DIR=/NIRAL/devel/linux/SlicerExecutionModel/SlicerExecutionModel-build_ITKv4.4.1_dyn
+CC=/usr/bin/gcc CXX=/usr/bin/g++ ${CMAKE} -DITK_DIR:PATH=${ITK_DIR} $@ -DSlicerExecutionModel_DIR:PATH=${SlicerExecutionModel_DIR} -DVTK_DIR:PATH=${VTK_DIR}
+
