@@ -1,0 +1,172 @@
+#additional sourcing
+
+# group + write
+umask 002
+
+if ($?OSTYPE == 0) then
+	setenv OSTYPE `uname -s`
+endif
+
+if ($?PROCTYPE == 0) then
+	setenv PROCTYPE `uname -p`
+endif
+
+setenv PRINTER othar
+
+if ($?LD_LIBRARY_PATH == 0) then
+        setenv  LD_LIBRARY_PATH '/usr/lib/X11:/usr/openwin/lib'
+endif
+
+#PATH and LD_LIBRARY_PATH
+
+if ($PROCTYPE == x86_64) then
+	setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:/usr/local/lib:/opt/local/lib64:/usr/lib64:/opt/local/lib:/usr/ucblib:$HOME/lib/linux64:.:/tools/lib_linux64:/tools/lib_${OSTYPE}
+	setenv PATH $HOME/bin_linux64:$HOME/bin_${OSTYPE}:/tools/bin_linux64:/bin:/usr/bin:${PATH}:/opt/local/bin64:/usr/ccs/bin:/tools/bin_${OSTYPE}:/opt/local/bin:.
+#Franco	setenv PATH $HOME/bin_linux64:$HOME/bin_${OSTYPE}:/bin:/usr/bin:${PATH}:/opt/local/bin64:/usr/ccs/bin:/tools/bin_${OSTYPE}:/opt/local/bin:.
+else 
+	setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:/usr/local/lib:/opt/local/lib:/usr/ucblib:$HOME/lib/${OSTYPE}:.:/tools/lib_${OSTYPE}:/projects4/CHDI_TrackHD/tools/ITK.3.20
+	setenv PATH /tools/rview_${OSTYPE}:$HOME/bin_${OSTYPE}:/bin:/tools/bin_${OSTYPE}:/usr/bin:${PATH}:/opt/local/bin:/usr/ccs/bin
+endif
+
+if ($?MANPATH == 0) then
+        setenv MANPATH /usr/local/man:/usr/man:/usr/afsws/man:/usr/share/man:/opt/ansic/share/man:/usr/openwin/share/man:
+endif
+setenv MANPATH ${MANPATH}:/opt/local/man
+
+#AVS settings :
+setenv AVS_MODULE_HOME $HOME/avs/modules
+setenv AVS_GG_HOME /usr/local/avs/local
+setenv AVS_LOCAL_HOME /usr/local/avs/local
+setenv AVS_USER_DATA_TYPES ${AVS_GG_HOME}/include/gg_udd.h
+if (-e ${AVS_LOCAL_HOME}/avs.env) then
+	source ${AVS_LOCAL_HOME}/avs.env
+endif
+setenv AVS_LICENSE_FILE /usr/local/avs/runtime/license.dat
+
+setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:${AVS_LOCAL_HOME}/lib:${AVS_GG_HOME}/lib_shared:${AVS_GG_HOME}/lib:/opt/local/lib
+
+setenv TEXINPUTS :.:$HOME/latex/style
+
+#MATLAB stuff
+setenv PATH ${PATH}:/tools/matlab6p1_linux/bin
+#SPM STUFF
+setenv MATLABPATH /tools/SPM99:/tools/SnPM99
+
+# rview
+setenv PATH /tools/rview_linux64_2008:$PATH
+
+#CMF stuff
+setenv PLATFORM_DIR /usr/local/cmfapp/config
+setenv TS_MODULE_PATH /usr/local/cmfapp/data/TSModules
+setenv TS_TRACKER_MODULE libNDIPolaris
+setenv TS_CLIENT_INTERFACE_MODULE_PATH /usr/local/cmfapp/data/TSClientModules
+setenv TS_CLIENT_INTERFACE_MODULE libTSInterfaceSocket
+setenv NDI_POLARIS_COMPORT /dev/ttyS0
+
+#DCMtk stuff
+setenv DCMDICTPATH /tools/dcmtk/dcmtk-3.5.4_linux64/lib/dicom.dic
+
+#KWShapeAnalysis stuff
+setenv KWShapeAnalysis_Home /home/styner/ShapeTools/linux64
+
+#Slicer stuff
+setenv SLICERPATH /tools/Slicer4/Slicer-4.3.1-linux-amd64/
+
+setenv SLICERBINPATH $SLICERPATH/bin
+setenv SLICERLIBPATH $SLICERPATH/lib
+
+setenv PATH ${PATH}:${SLICERPATH}:${SLICERLIBPATH}/Slicer-4.3/cli-modules:${SLICERBINPATH}
+
+setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:${SLICERLIBPATH}/BRAINSCommonLib:${SLICERLIBPATH}/QtPlugins:${SLICERLIBPATH}/Slicer-4.3:${SLICERLIBPATH}/Slicer-4.3/cli-modules:${SLICERLIBPATH}/Slicer-4.3/qt-loadable-modules:${SLICERLIBPATH}/Teem-1.10.0
+
+alias unu $SLICERBINPATH/unu
+alias tend $SLICERBINPATH/tend
+
+setenv NRRD_STATE_KEYVALUEPAIRS_PROPAGATE
+
+if (-e ~/.alias) source ~/.alias
+set autolist
+set nobeep
+
+#Freesurfer stuff
+setenv FREESURFER_HOME /opt/local/Freesurfer_4_64
+if (-e $FREESURFER_HOME) then
+	source $FREESURFER_HOME/SetUpFreeSurfer.csh > /dev/null
+endif
+
+setenv DTITK_ROOT /tools/DTITK/DTITK_64_4.7/
+setenv PATH ${PATH}:${DTITK_ROOT}/bin:${DTITK_ROOT}/utilities:${DTITK_ROOT}/scripts
+
+setenv PATH /tools/CMake/cmake-2.8.12.2/bin/:${PATH}
+setenv FSLDIR /tools/FSL/fsl-4.1.4/fsl
+source ${FSLDIR}/etc/fslconf/fsl.csh
+setenv PATH ${FSLDIR}/bin:${PATH}
+
+setenv MedINRIADIR /devel/linux/DTI/dtiprocess/linux64_AG/MedINRIA
+setenv PATH ${MedINRIADIR}:${PATH}
+
+setenv BatchmakeShapeAnalysisModule_Dir /biomed-resimg/home/agupta/SPHARM-PDM/spharm-pdm_v1.10_linux64/BatchMake_Applications/
+setenv PATH /biomed-resimg/home/agupta/SPHARM-PDM/spharm-pdm_v1.10_linux64:${PATH}
+
+setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:/opt/gupta/qwt-6.0.1-svn/include:/opt/gupta/qwt-6.0.1-svn/lib:/opt/gupta/qwt-6.0.1-svn/plugins
+
+#setenv ITKDIR /biomed-resimg/crews_rodent/devel/linux/ITK_3.X/Insight_3.20.0/ITK_3.20.0_linux64
+#setenv PATH ${ITKDIR}:${PATH}
+
+#setenv ITKAPP /biomed-resimg/crews_rodent/devel/linux/ITK_3.X/Insight_3.20.0/InsightApplications-3.20.0
+#setenv PATH ${ITKAPP}:${PATH}
+
+setenv PATH /biomed-resimg/tools/VTK/VTK_5.6/VTK_5.6_linux64/bin:${PATH}
+
+
+setenv QTDIR /NIRAL/tools/Qt/Qt4.8.2/Qt4.8.2_linux64_THL
+set QtLibPath = ${QTDIR}/lib
+set QtPath = ${QTDIR}/bin
+setenv PATH ${PATH}:${QtPath}:${QtLibPath}:${QTDIR}/include
+setenv LD_LIBRARY_PATH ${QtLibPath}:/NIRAL/tools/Qt/Qt4.7.4-linux64_THL/lib:${LD_LIBRARY_PATH}
+
+setenv ANTSPATH /NIRAL/devel/linux/ANTS/ANTs-1.9.x-Linux/bin/
+
+#Python and SimpleITK and VTK
+#setenv PYTHONPATH /tools/Python/Python-2.7.5/lib/python2.7/site-packages/
+setenv PYTHONPATH /tools/Python/Python-2.7.5/
+setenv PATH /tools/Python/Python-2.7.5/bin/:${PATH}
+setenv LD_LIBRARY_PATH /NIRAL/tools/VTK/VTK_5.10.1/VTK_5.10.1_X64_dyn_release_Qt4.8.2_Python/lib/vtk-5.10:/tools/Python/Python-2.7.5/lib/:${LD_LIBRARY_PATH}
+#Python 3.3.2
+#setenv PYTHONPATH /tools/Python/Python-3.3.2/lib/python3.3/site-packages/
+#setenv PATH /tools/Python/Python-3.3.2/bin/:${PATH}
+#setenv LD_LIBRARY_PATH /tools/Python/Python-3.3.2/lib/:${LD_LIBRARY_PATH}
+
+
+#ITK 4.4.1
+setenv ITK_DIR /ITKv4.4.1_THL64_dyn/lib/cmake/ITK-4.4/
+#VTK 6.1.0
+setenv VTK_DIR /NIRAL/tools/VTK/VTK_6.1.0/VTK_6.1.0_linux64_dyn_release_Python2.7.5_Qt4.8.2/lib/cmake/vtk-6.1
+
+
+#qtcreator
+setenv PATH ${PATH}:/tools/qtcreator-2.7.0/bin/
+
+#DSIstudio
+setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:/devel/linux/Boost/boost_1_52_0_x64_release/lib 
+setenv DSI_STUDIO_FA_TEMPLATE /tools/bin_linux64/FMRIB58_FA_1mm.nii.gz
+
+#qt3
+setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:/NIRAL/devel/linux/Qt3/lib
+
+#AutoSeg
+setenv AUTOSEG_HOME /tools/bin_linux64
+
+#git 1.8.3.4
+setenv PATH /NIRAL/tools/git/git-1.8.3.4-linux64/bin:${PATH}
+
+#subversion 1.7.17
+setenv PATH /tools/svn/svn-1.7.17/bin:${PATH}
+
+setenv TERM xterm-256color
+eval `dircolors ~/.dir_colors`
+set autolist
+set nobeep
+set filec
+
+
