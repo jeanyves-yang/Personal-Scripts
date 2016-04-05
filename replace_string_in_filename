@@ -1,0 +1,8 @@
+#!/bin/bash
+
+FILES=/home_raid1/yang/Desktop/Heart_GT/*.info
+
+for f in $FILES
+  do 
+    mv -v $f ${f/CASE/Case}
+  done
