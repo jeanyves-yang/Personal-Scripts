@@ -4,5 +4,5 @@ FILES=/home_raid1/yang/Desktop/Heart_GT/*.info
 
 for f in $FILES
   do 
-    mv -v $f ${f/CASE/Case}
+    mv -v $f ${f/CASE/Case} #use ${f// /_} for example to replace spacebar by underscore
   done
