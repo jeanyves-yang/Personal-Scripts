@@ -1,0 +1,20 @@
+#!/bin/bash
+FILES=/home_raid1/yang/Desktop/Heart_GT/*.info
+dens_list=".dens_list"
+seg_list=".seg_list"
+tmp="/tmp/"
+json=".json"
+mastervol="/home_raid1/yang/Desktop/Heart_MasterVol/"
+txt=".txt"
+log="/tmp/log/log_"
+for f in $FILES
+do
+    #echo "$f"
+    FULL_FILENAME=$f
+    FILENAME=${FULL_FILENAME##*/}
+    #echo $FILENAME    
+    json_file=$tmp${FILENAME%.info}$json
+    #echo $json_file
+    ./runHeartDataTest $mastervol${FILENAME%.info}$dens_list $mastervol$FILENAME ${FULL_FILENAME%.info}$seg_list $json_file > $log${FILENAME%.info}$txt 2>&1
+    #echo $mastervol${FILENAME%.info}$dens_list $mastervol$FILENAME ${FULL_FILENAME%.info}$seg_list $json_file
+done
